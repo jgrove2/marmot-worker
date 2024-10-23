@@ -1,2 +1,8 @@
-# marmot_worker
-Worker repository for marmot project
+```
+npm install
+npm run dev
+```
+
+```
+npm run deploy
+```

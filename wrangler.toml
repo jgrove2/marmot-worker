@@ -1,6 +1,8 @@
 name = "marmot_worker"
 main = "src/index.ts"
 compatibility_date = "2024-10-23"
+main = "src/index.ts"
+minify = true
 compatibility_flags = [ "nodejs_compat" ]
 
 # [vars]

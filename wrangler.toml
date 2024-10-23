@@ -1,4 +1,4 @@
-name = "marmot_worker"
+name = "marmot-worker"
 main = "src/index.ts"
 compatibility_date = "2024-10-23"
 minify = true

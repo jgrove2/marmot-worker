@@ -7,15 +7,18 @@ import { jwt } from "hono/jwt";
 import swaggerApp from "./middleware/swagger.middleware";
 import corsConfig from "./config/cors.config";
 import csrfConfig from "./config/csrf.config";
-import testRoutes from "./routes/test.routes";
+import groupRoutes from "./routes/group.routes";
+import payeeRoutes from "./routes/payee.routes";
+import accountRoutes from "./routes/account.routes";
 
 const app = new Hono()
   .basePath("/marmot")
   .use("*", logger())
   .use("*", cors(corsConfig))
-  .use("/backend/*", csrf(csrfConfig))
+  .use("*", csrf(csrfConfig))
   .use("*", secureHeaders())
-  .route("/ui", swaggerApp)
-  .route("/", testRoutes);
+  .route("/group", groupRoutes)
+  .route("/payee", payeeRoutes)
+  .route("/account", accountRoutes);
 
 export default app;

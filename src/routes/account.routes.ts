@@ -5,7 +5,6 @@ import { zValidator } from "@hono/zod-validator";
 
 const accountCreationSchema = z.object({
   name: z.string(),
-  balance: z.bigint(),
 });
 
 const accountUpdateSchema = z.object({
@@ -29,16 +28,15 @@ const accountRoutes = new Hono()
         );
         const body = await c.req.json();
         const accountName = body["name"];
-        const startingBalance = body["balance"];
         const { data: accountData, error: accountError } = await supaClient
           .from("accounts")
-          .insert([{ name: accountName, balance: startingBalance }])
+          .insert([{ name: accountName }])
           .select("account_id")
           .single();
 
         if (accountError) {
           return c.json(
-            { message: "An error occured creating the account" },
+            { message: "An error occurred creating the account" },
             500
           );
         }
@@ -69,13 +67,13 @@ const accountRoutes = new Hono()
     try {
       const { user, supaClient } = await createSupabaseClientAndConnectUser(c);
       const { data: accountData, error: accountError } = await supaClient
-        .from("accounts_user_join")
+        .from("account_user_join")
         .select("...accounts(account_id, name, balance)")
         .eq("user_id", user.id);
 
       if (accountError) {
         return c.json(
-          { message: "An error has occured getting accounts" },
+          { message: "An error has occurred getting accounts" },
           500
         );
       }
@@ -84,7 +82,7 @@ const accountRoutes = new Hono()
       if (err instanceof Error && err.message === "Unauthorized") {
         return c.json({ message: "Unauthorized" }, 401);
       }
-      return c.json({ message: "An error occured getting account data" });
+      return c.json({ message: "An error occurred getting account data" });
     }
   })
   .put(

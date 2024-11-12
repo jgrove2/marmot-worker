@@ -10,6 +10,8 @@ import csrfConfig from "./config/csrf.config";
 import groupRoutes from "./routes/group.routes";
 import payeeRoutes from "./routes/payee.routes";
 import accountRoutes from "./routes/account.routes";
+import categoryRoutes from "./routes/category.routes";
+import transactionRoutes from "./routes/transaction.routes";
 
 const app = new Hono()
   .basePath("/marmot")
@@ -19,6 +21,8 @@ const app = new Hono()
   .use("*", secureHeaders())
   .route("/group", groupRoutes)
   .route("/payee", payeeRoutes)
-  .route("/account", accountRoutes);
+  .route("/account", accountRoutes)
+  .route("/category", categoryRoutes)
+  .route("/transaction", transactionRoutes)
 
 export default app;
